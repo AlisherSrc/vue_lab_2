@@ -60,6 +60,7 @@ const liked = () => {
     background: rgba(91, 185, 205, 1);
     border-radius: 10px;
     padding: 5px;
+    height: 170px;
 }
 
 .card-container p{

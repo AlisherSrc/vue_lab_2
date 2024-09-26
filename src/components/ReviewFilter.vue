@@ -2,15 +2,24 @@
 import { blogReviews } from '@/stores/reviews';
 
 const reviews = blogReviews();
+const filterClickEmit = defineEmits(['clicked']);
 
 const toggleSortOrder = () => {
+    reviews.type = "rating";
     reviews.setDescending(!reviews.isDescending);
+    filterClickEmit('clicked',reviews.sortedReviews);
+}
+
+const toggleSortOrderDate = () => {
+    reviews.type = "date";
+    reviews.setDescending(!reviews.isDescending);
+    filterClickEmit('clicked',reviews.sortedReviewsByDate);
 }
 
 </script>
 <template>
     <div class="filter">
-        <div class="filter-icon">
+        <div class="filter-icon" @click="toggleSortOrderDate">
             <!-- Filter icon (a simple SVG or image) -->
             <img src="../assets/filter.svg" alt="Filter" />
         </div>

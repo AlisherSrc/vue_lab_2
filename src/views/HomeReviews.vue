@@ -11,9 +11,11 @@ const reviews = blogReviews();
 let maxPages = computed(() => Math.ceil(reviews.reviews.length / 4));
 let currentPage = ref(1);
 let itemsPerPage = ref(4);
-let reviewsArr =  ref(reviews.sortedReviews);
+let reviewsArr =  ref(reviews.reviews); // default
+
+
 const handleLikeClick = (id) => {
-    const updatedReviews = reviews.sortedReviews.map((review) => {
+    const updatedReviews = (reviews.type === 'date' ? reviews.sortedReviewsByDate : reviews.sortedReviews).map((review) => {
         if (review.id === id) {
             // Update the rating and the other values
             const newUniquePeopleLiked = review.unqiuePeopleLiked + 1;
@@ -31,6 +33,7 @@ const handleLikeClick = (id) => {
     });
 
     reviews.setReviews(updatedReviews);
+    reviewsArr.value = (reviews.type === 'date' ? reviews.sortedReviewsByDate : reviews.sortedReviews);
 };
 
 const nextPage = () => {
@@ -39,11 +42,18 @@ const nextPage = () => {
 }
 
 const handleSelectCategory = (category) => {
-    reviewsArr.value = reviews.sortedReviews;
+    reviewsArr.value = (reviews.type === 'date' ? reviews.sortedReviewsByDate : reviews.sortedReviews);
     reviewsArr.value = reviewsArr.value.filter((review) => review.blogCategory === category);
+    currentPage.value = 1;
     maxPages = computed(() => Math.ceil(reviewsArr.value.length / 4))
     categories.setCurrentCategory(category);
 }
+
+const handleFilterClicked = (arr) => {
+    console.log(arr,'pls work', reviews.type)
+    reviewsArr.value = arr;
+}
+
 </script>
 
 <template>
@@ -59,7 +69,7 @@ const handleSelectCategory = (category) => {
                         <CategoryBtn @clicked="handleSelectCategory" />
                     </div>
                     <div class="card-content__filter">
-                        <ReviewFilter />
+                        <ReviewFilter @clicked="handleFilterClicked"/>
                     </div>
                     <div class="card-content__next_page">
                         <img src="../assets/arrow_right.svg" alt="arrow right" @click="nextPage" />
