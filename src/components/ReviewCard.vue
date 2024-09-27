@@ -1,5 +1,6 @@
 <script setup>
 import { defineEmits } from 'vue';
+import { dateToStrParser } from '@/utils/dateParser';
 
 const clickEmit = defineEmits(['clicked']);
 
@@ -7,7 +8,7 @@ const props = defineProps({
     id: Number,
     name: String,
     surname: String,
-    date: String,
+    date: Date,
     avatar: String,
     rating: Number,
     text: String,
@@ -24,7 +25,7 @@ const liked = () => {
         <div class="card-top">
             <div class="card-top__general-info">
                 <p>{{ name + surname }}</p>
-                <p>{{ date }}</p>
+                <p>{{  dateToStrParser(date) }}</p>
             </div>
             <div class="card-top__rating">
                 <p>Rating</p>
