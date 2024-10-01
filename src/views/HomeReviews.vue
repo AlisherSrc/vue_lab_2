@@ -34,6 +34,7 @@ const handleLikeClick = (id) => {
 
     reviews.setReviews(updatedReviews);
     reviewsArr.value = (reviews.type === 'date' ? reviews.sortedReviewsByDate : reviews.sortedReviews);
+    handleSelectCategory(categories.currCategory);
 };
 
 const nextPage = () => {
@@ -50,8 +51,8 @@ const handleSelectCategory = (category) => {
 }
 
 const handleFilterClicked = (arr) => {
-    console.log(arr,'pls work', reviews.type)
     reviewsArr.value = arr;
+    handleSelectCategory(categories.currCategory);
 }
 
 </script>

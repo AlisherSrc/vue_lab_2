@@ -25,21 +25,35 @@ const liked = () => {
         <div class="card-top">
             <div class="card-top__general-info">
                 <p>{{ name + surname }}</p>
-                <p>{{  dateToStrParser(date) }}</p>
+                <p>{{ dateToStrParser(date) }}</p>
             </div>
             <div class="card-top__rating">
                 <p>Rating</p>
                 <div class="card-top__rating-stars">
-                    <img v-if="rating >= 1" src="./../assets/star_solid.svg" />
-                    <img v-else src="./../assets/star_empty.svg" />
-                    <img v-if="rating >= 2" src="./../assets/star_solid.svg" />
-                    <img v-else src="./../assets/star_empty.svg" />
-                    <img v-if="rating >= 3" src="./../assets/star_solid.svg" />
-                    <img v-else src="./../assets/star_empty.svg" />
-                    <img v-if="rating >= 4" src="./../assets/star_solid.svg" />
-                    <img v-else src="./../assets/star_empty.svg" />
-                    <img v-if="rating >= 4.5" src="./../assets/star_solid.svg" />
-                    <img v-else src="./../assets/star_empty.svg" />
+                    <!-- First Star -->
+                    <img v-if="rating < 0.5" src="./../assets/star_empty.svg" />
+                    <img v-else-if="rating < 1" src="./../assets/star_half.svg" />
+                    <img v-else src="./../assets/star_solid.svg" />
+
+                    <!-- Second Star -->
+                    <img v-if="rating < 1.5" src="./../assets/star_empty.svg" />
+                    <img v-else-if="rating < 2" src="./../assets/star_half.svg" />
+                    <img v-else src="./../assets/star_solid.svg" />
+
+                    <!-- Third Star -->
+                    <img v-if="rating < 2.5" src="./../assets/star_empty.svg" />
+                    <img v-else-if="rating < 3" src="./../assets/star_half.svg" />
+                    <img v-else src="./../assets/star_solid.svg" />
+
+                    <!-- Fourth Star -->
+                    <img v-if="rating < 3.5" src="./../assets/star_empty.svg" />
+                    <img v-else-if="rating < 4" src="./../assets/star_half.svg" />
+                    <img v-else src="./../assets/star_solid.svg" />
+
+                    <!-- Fifth Star -->
+                    <img v-if="rating < 4.5" src="./../assets/star_empty.svg" />
+                    <img v-else-if="rating < 5" src="./../assets/star_half.svg" />
+                    <img v-else src="./../assets/star_solid.svg" />
                 </div>
             </div>
             <div class="card-top__avatar">
@@ -64,7 +78,7 @@ const liked = () => {
     height: 170px;
 }
 
-.card-container p{
+.card-container p {
     color: rgba(255, 255, 255, 1);
 }
 
@@ -103,6 +117,14 @@ const liked = () => {
     margin-left: 30px;
     margin-top: 10px;
     height: 59px;
+}
+
+.card-top__rating p {
+    font-family: 'Jersey 15';
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 20px;
+    text-align: left;
 }
 
 .card-top__rating-stars {
