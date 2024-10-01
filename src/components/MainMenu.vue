@@ -1,25 +1,32 @@
 <script setup>
 import { blogCategories } from '@/db';
 import { blogCategory } from '@/stores/blogCategories';
-
+import { useRouter } from 'vue-router';
 const toggleMenuEmit = defineEmits(['clicked']);
 
 const categories = blogCategory();
+const router = useRouter();
 
 const toggleMenu = () => {
     toggleMenuEmit('clicked');
 }
 
+const menuClick = () => {
+    router.push({name: 'home'})
+    toggleMenu();
+}
+
 const categoryClick = (category) => {
     categories.setCurrentCategory(category);
-    // toggleMenu();
+    router.push({name: 'blog', params: {blogname: category}});
+    toggleMenu();
 }
 
 </script>
 <template>
     <div class="menu-container">
         <div class="menu">
-            <p @click="toggleMenu">MENU</p>
+            <p @click="menuClick">MENU</p>
             <div class="menu-content">
                 <ul class="menu-content__items">
                     <li v-for="category in blogCategories" v-bind:key="category" @click="categoryClick(category)">
